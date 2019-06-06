@@ -35,7 +35,7 @@ let download = async (x,i,search)=>{
         download(x,i,search)
         i++
     }
-    let searchDomain = ['oneplus','samsung','iphone','razerphone','google pixel','nokia','wifi router']
+    let searchDomain = ['oneplus','samsung','iphone','razerphone','google pixel','nokia','wifi router'] //----->define search domain
     await page.goto('http://amazon.com');
     await page.waitFor(4000)
     for(loop = 0;loop < searchDomain.length;loop++){
@@ -56,5 +56,5 @@ let download = async (x,i,search)=>{
             }
     }
     
-
+    await browser.close()
 })()
