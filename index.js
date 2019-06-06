@@ -6,7 +6,7 @@ let download = async (x,i,search)=>{
         if(val!==null){
         let test = await down.image({
             url : val,
-            dest : `./phones/${search}`+i +`-${parseInt(Math.random()*100)}`+'.png' //-----------------> chnage the folder we can make it dynamic in next update :D
+            dest : `./pics/${search}`+i +`-${parseInt(Math.random()*100)}`+'.png' //-----------------> chnage the folder we can make it dynamic in next update :D
         })
         //console.log(test)
         }
