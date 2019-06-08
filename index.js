@@ -1,14 +1,14 @@
 const puppeteer = require('puppeteer');
 const down = require('image-downloader')
 
-let download = async (x,i,search)=>{
+let download = async (x,search)=>{
     x.map(async (val)=>{
         if(val!==null){
         let test = await down.image({
             url : val,
-            dest : `./pics/${search}`+i +`-${parseInt(Math.random()*100)}`+'.png' //-----------------> chnage the folder we can make it dynamic in next update :D
+            dest : `./pics/${search}` +`-${parseInt(Math.random()*100)}`+'.png' //-----------------> chnage the folder we can make it dynamic in next update :D
         })
-        //console.log(test)
+        console.log(test)
         }
     })
 }
@@ -21,40 +21,39 @@ let download = async (x,i,search)=>{
             height: '900'
         }
     });
-    let i = 1
     const page = await browser.newPage();
+
+
     let visitpage = async(search)=>{
+        console.log('hhhhellooo')
         let x = await page.evaluate(()=>{
             let arr = []
-            let x = document.getElementsByClassName('s-image')
+            let x = document.getElementsByClassName('z_e_h')
             for (key in x){
-                arr.push(x[key].src)
+                    arr.push(x[key].src)
             }
             return arr
         })
-        download(x,i,search)
-        i++
+        x = x.slice(0,14)
+        console.log(x)
+        download(x,search)
     }
-    let searchDomain = ['oneplus','samsung','iphone','razerphone','google pixel','nokia','wifi router'] //----->define search domain
-    await page.goto('http://amazon.com');
-    await page.waitFor(4000)
-    for(loop = 0;loop < searchDomain.length;loop++){
-        await page.evaluate(()=>{
-            document.querySelector('#twotabsearchtextbox').value = ''
-        })
-        await page.type('#twotabsearchtextbox',searchDomain[loop])
-        await page.click('.nav-input')
-        await page.waitFor(5000)
-        await visitpage(searchDomain[loop])
-        for(y = 0;y < 4; y++){ //---------------------------------------------------------->times the page you wanna visit
-            await page.waitFor(5000)
-            await page.evaluate(()=>{
-                document.querySelector('.a-last > a').click()
-            })
-            await page.waitFor(4000)
-            await visitpage(searchDomain[loop])
-            }
-    }
+    let searchDomain = [
+        'samsung galaxy watch?category=Beauty%2FFashion',
+        'samsung galaxy s10',
+        'samsung galaxy s9 plus',
+        'samsung galaxy a50',
+        'samsung ear pod',
+        'samsung tablet',
+        'samsung portable ssd'
+
+
+    ] //----->define search domain
+ 
+     for (i =0;i<searchDomain.length;i++){
+        await page.goto('https://www.shutterstock.com/search/'+searchDomain[i]);
+        await page.waitFor(4000)
+        await visitpage(searchDomain[i])
+     }
     
-    await browser.close()
 })()
