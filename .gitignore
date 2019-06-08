@@ -1,0 +1,5 @@
+phones
+node_modules
+package-*
+pics
+.DS_Store
